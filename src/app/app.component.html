@@ -1,29 +1,118 @@
 <div class="contenedor">
-
-  <header>
-    <i class="ti ti-brand-youtube icon"></i>
-    <span>YOUTUBE DOWNLOADER</span>
-  </header>
-
-  <div class="content">
-
-    <div style="display: flex; flex-direction: column; width: 100%; align-items: center; justify-content: center;">
-      <div class="search-bar">
-        <div class="input">
-          <i class="ti ti-unlink icon"></i>
-          <input type="text" placeholder="Enter Youtube URL here">
-        </div>
-      </div>
-      <section class="images">
-        <img src="https://www.xtrafondos.com/wallpapers/musica-lofi-finn-de-hora-de-aventura-9453.jpg" alt="" srcset="">
-      </section>
+  <!-- Spinner -->
+  <div class="spinner-container" *ngIf="spinnerStatus">
+    <div class="spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-
-    <!-- Side Bar -->
-    <div class="sidebar">
-    </div>
-
   </div>
 
+  <!-- Alert TimeOut -->
+  <div class="alert-timeout" *ngIf="failedToDownload">
+    <i class="ti ti-alert-hexagon-filled"></i>
+    <span>An error has occurred, please try again or later.</span>
+  </div>
+
+  <!-- Alert Downloading -->
+  <div class="alert-downloading" *ngIf="startDownloading">
+    <span>Downloading: {{VideoSelectedDetails.title}}</span>
+    <div class="progress">
+      <div class="bar">{{ generateProgressBar() }}</div>
+      <span class="bar-details">{{progressBar.porcent}}% | {{progressBar.loaded}}/{{progressBar.total}}</span>
+    </div>
+    <span *ngIf="progressBar.porcent === 100">
+      Downloaded! ヾ(＠⌒ー⌒＠)ノ
+    </span>
+  </div>
+
+  <header>
+    <span>Youtube Downloader</span>
+    <i *ngIf="VideoSelectedDetails.title != ''" (click)="hiddeSideBar()" class="ti ti-menu-2"></i>
+  </header>
+
+  <div style="width: 100%; position: relative;">
+    <div class="search-bar">
+      <div class="input">
+        <i class="ti ti-search icon"></i>
+        <input placeholder="Search Youtube video or paste URL" type="search" [formControl]="input">
+      </div>
+    </div>
+
+    <!-- Video Selected Details -->
+    <section class="sidebar" [ngClass]="{'showSideBar': sideBarStatus}">
+      <div class="image-container">
+        <i class="ti ti-player-play-filled icon"></i>
+        <img src="{{VideoSelectedDetails.img}}" alt="{{VideoSelectedDetails.channelTitle}}" (click)="PlayVideo()">
+      </div>
+
+      <div class="details">
+        <h1 style="font-weight: 600;">{{VideoSelectedDetails.channelTitle}}</h1>
+        <p class="description" *ngIf="VideoSelectedDetails.description != ''">
+          <span>{{VideoSelectedDetails.description}}</span>
+        </p>
+      </div>
+
+      <div class="options" style="user-select: none;">
+        <mat-form-field>
+          <mat-label>Format</mat-label>
+          <mat-select [(value)]="DownloadOptions.format">
+            <mat-option value="video">Video</mat-option>
+            <mat-option value="audioonly">Audio</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Quality</mat-label>
+          <mat-select [(value)]="DownloadOptions.quality">
+            <mat-option value="highest">Highest</mat-option>
+            <mat-option value="lowest">Lowest</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div class="download">
+        <button mat-raised-button (click)="Download()">
+          <span>
+            <i class="ti ti-download"></i>Download
+          </span>
+        </button>
+        <button mat-raised-button (click)="hiddeSideBar()">
+          <span>
+            <i class="ti ti-arrow-back"></i>Back
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <div class="videos">
+
+      <div class="title">
+        <h1 class="titulo" *ngIf="!inputResult">Most Popular Videos</h1>
+        <h1 class="titulo" *ngIf="inputResult">Results of "{{inputResult}}"</h1>
+      </div>
+
+      <div class="card-container" *ngFor="let detail of videosDetails" (click)="SelectVideo(detail)">
+        <img src="{{detail.img}}" alt="{{detail.title}}">
+
+        <div class="details">
+          <div style="display: flex; gap: 10px; padding: 10px 0px;">
+            <img src="{{detail.img}}" alt="{{detail.title}}">
+            <span>{{detail.title}}</span>
+          </div>
+
+          <div class="author">
+            <span>{{detail.channelTitle}}</span>
+            &#8226;
+            <span>Publicado {{detail.publishedAt | date: "mediumDate"}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
