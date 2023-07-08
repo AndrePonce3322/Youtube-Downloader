@@ -147,20 +147,15 @@ export class AppComponent implements OnInit {
         timer(2000).subscribe(() => {
           // Espera 2 segundos para ocultar la barra de progreso
           this.startDownloading = false;
-          console.log('Oculto');
         });
 
-        const audioFormat = `${
-          this.DownloadOptions.format === 'audioonly' ? 'mp3' : 'mp4'
-        }`;
-
         // Downloading blob file
-        const blob = event.body!;
+        const blob = event.body! ;
         const aElement = document.createElement('a');
         const url = window.URL.createObjectURL(blob);
 
         aElement.href = url;
-        aElement.download = `${this.VideoSelectedDetails.title}.${audioFormat}`;
+        aElement.download = `${this.VideoSelectedDetails.title}`;
         aElement.click();
       }
     });

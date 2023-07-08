@@ -1,12 +1,13 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DownloadService {
-  private API_KEY = 'AIzaSyA0I5IzYV7CFzkD0_SMf2cMm-FVinuJG4U';
+  private API_KEY = environment.API_KEY;
 
   private popularvideos = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=US&key=${this.API_KEY}`;
   private DownloadURL = 'http://localhost:3000/';
