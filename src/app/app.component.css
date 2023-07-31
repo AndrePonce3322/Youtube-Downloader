@@ -173,19 +173,24 @@ header i {
   overflow-y: auto;
 }
 
-.image-container {
+.video-container {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  background: #000;
+  overflow: hidden;
   display: flex;
+  margin: 0;
+  padding: 0;
   justify-content: center;
   cursor: pointer;
 }
 
-.image-container:hover img {
+.video-container:hover img {
   filter: brightness(0.6);
 }
 
-.image-container .icon {
+.video-container .icon {
   display: block;
   font-size: 2rem;
   position: absolute;
@@ -424,7 +429,7 @@ mat-form-field {
     padding: 0 1rem;
   }
 
-  .image-container .icon {
+  .video-container .icon {
     font-size: 2.5rem;
   }
 
@@ -437,4 +442,13 @@ mat-form-field {
   .alert-timeout i {
     font-size: 20px;
   }
+}
+
+.video-options{
+  width: 100% !important;
+  height: 12rem !important;
+}
+
+iframe{
+  width: 100%;
 }
