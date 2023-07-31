@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { YouTubePlayerModule } from '@angular/youtube-player';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    YouTubePlayerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
