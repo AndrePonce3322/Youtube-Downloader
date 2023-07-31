@@ -10,6 +10,8 @@ import { DownloadService } from './Services/DownloadYT';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('videoplayer') VideoPlayer = Element;
+
   input = new FormControl('');
   inputResult: string | null = '';
   videosDetails: any[] = [];
@@ -77,6 +79,12 @@ export class AppComponent implements OnInit {
         });
       });
     });
+
+    // YouTube Player API
+    const tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
   }
 
   SelectVideo(details: any) {
@@ -110,16 +118,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  sideBarStatus: boolean = false;
+  sideBarStatus: boolean = true;
   hiddeSideBar() {
     this.sideBarStatus = !this.sideBarStatus;
-  }
-
-  PlayVideo() {
-    window.open(
-      `https://www.youtube.com/watch?v=${this.VideoSelectedDetails.id}`,
-      '_blank'
-    );
   }
 
   Download() {
@@ -150,7 +151,7 @@ export class AppComponent implements OnInit {
         });
 
         // Downloading blob file
-        const blob = event.body! ;
+        const blob = event.body!;
         const aElement = document.createElement('a');
         const url = window.URL.createObjectURL(blob);
 
