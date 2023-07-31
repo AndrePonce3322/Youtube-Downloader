@@ -44,9 +44,8 @@
 
     <!-- Video Selected Details -->
     <section class="sidebar" [ngClass]="{'showSideBar': sideBarStatus}">
-      <div class="image-container">
-        <i class="ti ti-player-play-filled icon"></i>
-        <img src="{{VideoSelectedDetails.img}}" alt="{{VideoSelectedDetails.channelTitle}}" (click)="PlayVideo()">
+      <div class="video-container">
+        <youtube-player [videoId]="VideoSelectedDetails.id" [width]="340" [height]="192" [ngStyle]="{'padding':'0', 'margin':'0'}"></youtube-player>
       </div>
 
       <div class="details">
@@ -72,7 +71,6 @@
             <mat-option value="lowest">Lowest</mat-option>
           </mat-select>
         </mat-form-field>
-
       </div>
 
       <div class="download">
