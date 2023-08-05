@@ -1,5 +1,11 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, interval, timer } from 'rxjs';
 import { DownloadService } from './Services/DownloadYT';
@@ -11,6 +17,14 @@ import { DownloadService } from './Services/DownloadYT';
 })
 export class AppComponent implements OnInit {
   @ViewChild('videoplayer') VideoPlayer = Element;
+  @ViewChild('SelectedVideoSideBar') SelectedVideoSideBar!: ElementRef;
+  @ViewChild('inputsearcher') inputsearcher!: ElementRef;
+
+  @HostListener('document:click', ['$event']) DocumentClick(event: Event){
+    if(this.inputsearcher.nativeElement.contains(event.target) && this.sideBarStatus === true){
+      this.sideBarStatus = false;
+    }
+  }
 
   input = new FormControl('');
   inputResult: string | null = '';
@@ -83,7 +97,7 @@ export class AppComponent implements OnInit {
     // YouTube Player API
     const tag = document.createElement('script');
 
-    tag.src = "https://www.youtube.com/iframe_api";
+    tag.src = 'https://www.youtube.com/iframe_api';
     document.body.appendChild(tag);
   }
 
