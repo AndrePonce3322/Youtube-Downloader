@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  sideBarStatus: boolean = true;
+  sideBarStatus: boolean = false;
   hiddeSideBar() {
     this.sideBarStatus = !this.sideBarStatus;
   }
