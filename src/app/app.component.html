@@ -31,25 +31,25 @@
 
   <header>
     <span>Youtube Downloader</span>
-    <i *ngIf="VideoSelectedDetails.title != ''" (click)="hiddeSideBar()" class="ti ti-menu-2"></i>
+    <i #menuIcon *ngIf="VideoSelectedDetails.title != ''" (click)="hiddeSideBar()" class="ti ti-menu-2"></i>
   </header>
 
   <div style="width: 100%; position: relative;">
     <div class="search-bar">
       <div class="input">
         <i class="ti ti-search icon"></i>
-        <input placeholder="Search Youtube video or paste URL" type="search" [formControl]="input">
+        <input #inputsearcher placeholder="Search Youtube video or paste URL" type="search" [formControl]="input">
       </div>
     </div>
 
     <!-- Video Selected Details -->
-    <section class="sidebar" [ngClass]="{'showSideBar': sideBarStatus}">
+    <section #SelectedVideoSideBar class="sidebar" [ngClass]="{'showSideBar': sideBarStatus}">
       <div class="video-container">
-        <youtube-player [videoId]="VideoSelectedDetails.id" [width]="340" [height]="192" [ngStyle]="{'padding':'0', 'margin':'0'}"></youtube-player>
+        <youtube-player [videoId]="VideoSelectedDetails.id" [width]="375" [height]="192" [ngStyle]="{'padding':'0', 'margin':'0'}"></youtube-player>
       </div>
 
       <div class="details">
-        <h1 style="font-weight: 600;">{{VideoSelectedDetails.channelTitle}}</h1>
+        <h1 style="font-weight: 600;">{{VideoSelectedDetails.title}}</h1>
         <p class="description" *ngIf="VideoSelectedDetails.description != ''">
           <span>{{VideoSelectedDetails.description}}</span>
         </p>
@@ -94,19 +94,19 @@
         <h1 class="titulo" *ngIf="inputResult">Results of "{{inputResult}}"</h1>
       </div>
 
-      <div class="card-container" *ngFor="let detail of videosDetails" (click)="SelectVideo(detail)">
-        <img src="{{detail.img}}" alt="{{detail.title}}">
+      <div class="card-container" *ngFor="let video of videosDetails" (click)="SelectVideo(video)">
+        <img src="{{video.img}}" alt="{{video.title}}">
 
         <div class="details">
           <div style="display: flex; gap: 10px; padding: 10px 0px;">
-            <img src="{{detail.img}}" alt="{{detail.title}}">
-            <span>{{detail.title}}</span>
+            <img src="{{video.img}}" alt="image from video {{video.title}}">
+            <span title="{{video.title}}">{{video.title}}</span>
           </div>
 
           <div class="author">
-            <span>{{detail.channelTitle}}</span>
+            <span>{{video.channelTitle}}</span>
             &#8226;
-            <span>Publicado {{detail.publishedAt | date: "mediumDate"}}</span>
+            <span>Published {{video.publishedAt | date: "mediumDate"}}</span>
           </div>
         </div>
       </div>
