@@ -223,16 +223,16 @@ header i {
   word-wrap: break-word;
 }
 
-.description::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 5px;
 }
 
-.description::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: #ffffff1f;
   border-radius: 20px;
 }
 
-.description::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 20px;
 }
