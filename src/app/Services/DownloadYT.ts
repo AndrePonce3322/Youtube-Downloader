@@ -10,8 +10,8 @@ export class DownloadService {
   private API_KEY = environment.API_KEY;
 
   private popularvideos = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=US&key=${this.API_KEY}`;
-  private DownloadURL = 'http://localhost:3000/';
-  private DownloadInfo = 'http://localhost:3000/info';
+  private DownloadURL = 'https://yt-core-api.onrender.com/';
+  private DownloadInfo = 'https://yt-core-api.onrender.com/info';
 
   constructor(private http: HttpClient) {}
 
